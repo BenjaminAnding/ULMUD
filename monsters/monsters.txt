@@ -1,0 +1,9 @@
+1000
+1000
+Monster
+1001
+1001
+Boogieman
+1002
+1000
+Creature

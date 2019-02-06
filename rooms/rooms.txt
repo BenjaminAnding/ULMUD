@@ -1,0 +1,18 @@
+1000 
+Starting room (room 1000).%rYou are standing in a large lobby.%r%rAs you glance around the room, you notice a somewhat large heron statue in the center of the room.
+n 1004 s 1001 e 1002 w 1003
+1001
+Room 1001.%rYou are in room 1001. It appears to be a parking lot of some kind.%rThere is a large hotel on the other side of the lot, but all of the action seems to be going on within the convention center in front of you.
+n 1000
+1002
+Room 1002.%rYou are in room 1002. You are in one of the ground floor bathrooms. There is a stall to the east.
+w 1000 e 1005
+1003
+Room 1003.%rThis is a stairwell that leads down to the main attraction! Unfortunately the way down is blocked at the moment.
+e 1000
+1004
+Room 1004.%rThis is a twin set of decorative elevators, they seem to be out of order for the moment.
+s 1000
+1005
+Room 1005.%rThis is a bathroom stall, let's not spend more time here than need be.
+w 1002
