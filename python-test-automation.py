@@ -10,20 +10,24 @@ for test in tests:
 	with open(test, 'r') as script:
 		for line in script:
 			lineprompts.append(line.split(':')[0])	
-			scriptlines.append(line.split(':')[1].strip())
-	print(lineprompts)
-	print(scriptlines)
-	print(lineresponses)
+			scriptlines.append(line.split(':')[1])
+			lineresponses.append(line.split(':')[2].strip())
+	#print(lineprompts)
+	#print(scriptlines)
+	#print(lineresponses)
 	tn = telnetlib.Telnet()
 	tn.open("localhost", "4000", 10)
 	for i in range(len(scriptlines)):
 		#print(lineprompts[i])
-		print(scriptlines[i])
+		print("Trying: "+scriptlines[i])
 		#print(lineresponses[i])
-		print(tn.read_until(lineprompts[i].encode("ascii")))
+		response = tn.read_until(lineprompts[i].encode("ascii"))
 		tn.write((scriptlines[i]+"\n").encode("ascii"))
-
-
+		if i > 0:
+			if lineresponses[i-1] in response.decode("ascii"):
+				print("Passed")
+			else:
+				print("Failed")
 
 
 

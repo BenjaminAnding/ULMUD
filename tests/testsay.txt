@@ -1,4 +1,4 @@
-...:Ben
-...:ben
->:say Yo
->:quit
+...:Ben:...
+...:ben:>
+>:say Yo:You say, "Yo"
+>:quit:See you next time!
