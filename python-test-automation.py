@@ -25,9 +25,9 @@ for test in tests:
 		tn.write((scriptlines[i]+"\n").encode("ascii"))
 		if i > 0:
 			if lineresponses[i-1] in response.decode("ascii"):
-				print("Passed")
+				print("Passed on "+scriptlines[i-1])
 			else:
-				print("Failed")
+				print("Failed on "+scriptlines[i-1])
 
 
 
