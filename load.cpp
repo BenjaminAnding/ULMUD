@@ -62,7 +62,7 @@ void LoadMessages ()
     getline (fMessages, sMessageText);
     if (!(sMessageCode.empty ()))
       messagemap [tolower (sMessageCode)] =
-            FindAndReplace (sMessageText, "%r", "\n");
+            FindAndReplace (sMessageText, "%r", "\r\n");
     } // end of read loop
 
 } // end of LoadMessages
@@ -101,7 +101,7 @@ void LoadRooms ()
       continue;
       }
 
-    tRoom * room = new tRoom (FindAndReplace (description, "%r", "\n") + "\n");
+    tRoom * room = new tRoom (FindAndReplace (description, "%r", "\r\n") + "\r\n");
     roommap [vnum] = room;
 
     // read exits from line (format is: <dir> <vnum> ...  eg. n 1234 s 5678)

@@ -85,8 +85,8 @@ void monster::MonsterMove (monster * m, const std::string & direction)
     
     // move player
     monster::MonsterToRoom (m, exititer->second,
-                   m->name + " goes " + direction + "\n",
-                   m->name + " enters.\n");
+                   m->name + " goes " + direction + "\r\n",
+                   m->name + " enters.\r\n");
     
 } // end of monsterMove
 
