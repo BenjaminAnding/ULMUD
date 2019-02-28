@@ -28,14 +28,14 @@ void PlayerEnteredGame (tPlayer * p, const string & message)
 {
   p->connstate = ePlaying;    // now normal player
   p->prompt = PROMPT;         // default prompt
-  *p << "Welcome, " << p->playername << "\n\n"; // greet them
+  *p << "Welcome, " << p->playername << "\r\n\r\n"; // greet them
   *p << message;
   *p << messagemap ["motd"];  // message of the day
   p->DoCommand ("look");     // new player looks around
 
   // tell other players
   SendToAll (
-    "Player " + p->playername + " has joined the game from " + p->GetAddress () + ".\n", 
+    "Player " + p->playername + " has joined the game from " + p->GetAddress () + ".\r\n", 
     p);
   
   // log it
@@ -164,7 +164,7 @@ void ProcessPlayerPassword (tPlayer * p, istream & sArgs)
     if (p->HaveFlag ("blocked"))
       {
       p->ClosePlayer ();
-      p->prompt = "Goodbye.\n";
+      p->prompt = "Goodbye.\r\n";
       throw runtime_error ("You are not permitted to connect.");
       }
       
@@ -178,7 +178,7 @@ void ProcessPlayerPassword (tPlayer * p, istream & sArgs)
     {
     if (++p->badPasswordCount >= MAX_PASSWORD_ATTEMPTS)
       {
-      *p << "Too many attempts to guess the password!\n";
+      *p << "Too many attempts to guess the password!\r\n";
       p->Init ();
       }
       throw;

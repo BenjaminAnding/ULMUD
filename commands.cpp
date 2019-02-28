@@ -84,9 +84,9 @@ void DoDirection (tPlayer * p, const string & sArgs)
 
   // move player
   PlayerToRoom (p, exititer->second,
-                "You go " + sArgs + "\n",
-                p->playername + " goes " + sArgs + "\n",
-                p->playername + " enters.\n");
+                "You go " + sArgs + "\r\n",
+                p->playername + " goes " + sArgs + "\r\n",
+                p->playername + " enters.\r\n");
   
   } // end of DoDirection
   
@@ -100,9 +100,9 @@ void DoQuit (tPlayer * p, istream & sArgs)
   
   if (p->connstate == ePlaying)
     {
-    *p << "See you next time!\n";
-    cout << "Player " << p->playername << " has left the game.\n";
-    SendToAll ("Player " + p->playername + " has left the game.\n", p);   
+    *p << "See you next time!\r\n";
+    cout << "Player " << p->playername << " has left the game.\r\n";
+    SendToAll ("Player " + p->playername + " has left the game.\r\n", p);   
     } /* end of properly connected */
 
   p->ClosePlayer ();
@@ -110,14 +110,14 @@ void DoQuit (tPlayer * p, istream & sArgs)
 
 void lookObject (tPlayer * p, string & which)
   {
-  *p << "Looking at object " << which << "\n";
+  *p << "Looking at object " << which << "\r\n";
 
   // scan available objects and display information about them ...
   }  // end of lookObject
 
 void DoWait (tPlayer * p, istream & sArgs)
 {
-    *p << "Waiting..." << "\n";
+    *p << "Waiting..." << "\r\n";
 }
 
 /* look */
@@ -150,7 +150,7 @@ void DoLook (tPlayer * p, istream & sArgs)
     for (tExitMap::const_iterator exititer = r->exits.begin ();
          exititer != r->exits.end (); ++exititer)
       *p << exititer->first << " ";
-    *p << "\n";        
+    *p << "\r\n";        
     }
   
   /* list other players in the same room */
@@ -175,7 +175,7 @@ void DoLook (tPlayer * p, istream & sArgs)
 
   /* If we listed anyone, finish up the line with a period, newline */
     if (iOthers){
-    *p << ".\n";
+    *p << ".\r\n";
     }
     
     int iMonsters = 0;
@@ -196,7 +196,7 @@ void DoLook (tPlayer * p, istream & sArgs)
     
     /* If we listed anyone, finish up the line with a period, newline */
     if (iMonsters){
-        *p << ".\n";
+        *p << ".\r\n";
     }
 
   
@@ -208,8 +208,8 @@ void DoSay (tPlayer * p, istream & sArgs)
 {
   p->NeedNoFlag ("gagged"); // can't if gagged
   string what = GetMessage (sArgs, "Say what?");  // what
-  *p << "You say, \"" << what << "\"\n";  // confirm
-  SendToAll (p->playername + " says, \"" + what + "\"\n", 
+  *p << "You say, \"" << what << "\"\r\n";  // confirm
+  SendToAll (p->playername + " says, \"" + what + "\"\r\n", 
             p, p->room);  // say it
 } // end of DoSay 
 
@@ -220,33 +220,33 @@ void DoTell (tPlayer * p, istream & sArgs)
   p->NeedNoFlag ("gagged"); // can't if gagged
   tPlayer * ptarget = p->GetPlayer (sArgs, "Tell whom?", true);  // who
   string what = GetMessage (sArgs, "Tell " + ptarget->playername + " what?");  // what  
-  *p << "You tell " << ptarget->playername << ", \"" << what << "\"\n";     // confirm
-  *ptarget << p->playername << " tells you, \"" << what << "\"\n";    // tell them
+  *p << "You tell " << ptarget->playername << ", \"" << what << "\"\r\n";     // confirm
+  *ptarget << p->playername << " tells you, \"" << what << "\"\r\n";    // tell them
 } // end of DoTell
 
 void DoSave  (tPlayer * p, istream & sArgs)
 {
   p->Save ();
-  *p << "Saved.\n";  
+  *p << "Saved.\r\n";  
 }
 
 void DoChat (tPlayer * p, istream & sArgs)
 {
   p->NeedNoFlag ("gagged"); // can't if gagged
   string what = GetMessage (sArgs, "Chat what?");  // what  
-  SendToAll (p->playername + " chats, \"" + what + "\"\n");  // chat it
+  SendToAll (p->playername + " chats, \"" + what + "\"\r\n");  // chat it
 }
 
 void DoEmote (tPlayer * p, istream & sArgs)
 {
   string what = GetMessage (sArgs, "Emote what?");  // what  
-  SendToAll (p->playername + " " + what + "\n", 0, p->room);  // emote it
+  SendToAll (p->playername + " " + what + "\r\n", 0, p->room);  // emote it
 }
 
 void DoWho (tPlayer * p, istream & sArgs)
 {
   NoMore (p, sArgs);  // check no more input
-  *p << "Connected players ...\n";
+  *p << "Connected players ...\r\n";
   
   int count = 0;
   for (tPlayerListIterator iter = playerlist.begin ();
@@ -257,12 +257,12 @@ void DoWho (tPlayer * p, istream & sArgs)
     if (pTarget->IsPlaying ())
       {
       *p << "  " << pTarget->playername << 
-            " in room " << pTarget->room << "\n";
+            " in room " << pTarget->room << "\r\n";
       ++count;
       } // end of if playing
     } // end of doing each player
   
-  *p << count << " player(s)\n";  
+  *p << count << " player(s)\r\n";  
 } // end of DoWho
 
 void DoSetFlag (tPlayer * p, istream & sArgs)
@@ -275,7 +275,7 @@ void DoSetFlag (tPlayer * p, istream & sArgs)
     throw runtime_error ("Flag already set.");
   
   ptarget->flags.insert (flag);   // set it
-  *p << "You set the flag '" << flag << "' for " << ptarget->playername << "\n";  // confirm
+  *p << "You set the flag '" << flag << "' for " << ptarget->playername << "\r\n";  // confirm
       
 } // end of DoSetFlag
 
@@ -289,7 +289,7 @@ void DoClearFlag (tPlayer * p, istream & sArgs)
     throw runtime_error ("Flag not set.");
 
   ptarget->flags.erase (flag);    // clear it
-  *p << "You clear the flag '" << flag << "' for " << ptarget->playername << "\n";  // confirm
+  *p << "You clear the flag '" << flag << "' for " << ptarget->playername << "\r\n";  // confirm
       
 } // end of DoClearFlag
 
@@ -297,7 +297,7 @@ void DoShutdown (tPlayer * p, istream & sArgs)
 {
   NoMore (p, sArgs);  // check no more input
   p->NeedFlag ("can_shutdown");
-  SendToAll (p->playername + " shuts down the game\n");
+  SendToAll (p->playername + " shuts down the game\r\n");
   bStopNow = true;
 } // end of DoShutdown
 
@@ -322,9 +322,9 @@ void DoGoTo (tPlayer * p, istream & sArgs)
 
   // move player
   PlayerToRoom (p, room,
-                MAKE_STRING ("You go to room " << room << "\n"),
-                p->playername + " disappears in a puff of smoke!\n",
-                p->playername + " appears in a puff of smoke!\n");
+                MAKE_STRING ("You go to room " << room << "\r\n"),
+                p->playername + " disappears in a puff of smoke!\r\n",
+                p->playername + " appears in a puff of smoke!\r\n");
   
   } // end of DoGoTo
   
@@ -341,13 +341,13 @@ void DoTransfer (tPlayer * p, istream & sArgs)
   
   NoMore (p, sArgs);  // check no more input  
 
-  *p << "You transfer " <<  ptarget->playername << " to room " << room << "\n";
+  *p << "You transfer " <<  ptarget->playername << " to room " << room << "\r\n";
   
    // move player
   PlayerToRoom (ptarget, room,
-                p->playername + " transfers you to another room!\n",
-                ptarget->playername + " is yanked away by unseen forces!\n",
-                ptarget->playername + " appears breathlessly!\n");
+                p->playername + " transfers you to another room!\r\n",
+                ptarget->playername + " is yanked away by unseen forces!\r\n",
+                ptarget->playername + " appears breathlessly!\r\n");
      
 } // end of DoTransfer
 
@@ -356,7 +356,7 @@ void DoKick (tPlayer * p, istream & sArgs)
     p->NeedFlag ("can_kick");
     tPlayer * ptarget = p->GetPlayer (sArgs, "Usage: kick <who>");
     NoMore (p, sArgs);  // check no more input
-    SendToAll (p->playername + " kicked "+ptarget->playername+".\n");
+    SendToAll (p->playername + " kicked "+ptarget->playername+".\r\n");
     ptarget->ClosePlayer ();
 }
 

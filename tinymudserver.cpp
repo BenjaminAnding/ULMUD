@@ -36,7 +36,7 @@ void PeriodicUpdates ()
     // send new command if it is time
   if (time (NULL) > (tLastMessage + MESSAGE_INTERVAL))
     {
-    SendToAll ("Autosaving characters...\n");
+    SendToAll ("Autosaving characters...\r\n");
         for(tPlayerListIterator i; i == playerlist.end(); i++) {
             tPlayer * p = *i;
             p->Save();
@@ -64,7 +64,7 @@ int main ()
   MainLoop ();    // handle player input/output
 
   // game over - tell them all
-  SendToAll ("\n\n** Game shut down. **\n\n");
+  SendToAll ("\r\n\r\n** Game shut down. **\r\n\r\n");
   
   CloseComms ();  // stop listening
 
