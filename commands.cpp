@@ -61,14 +61,14 @@ void PlayerToRoom (tPlayer * p,       // which player
                   const int & vnum,   // which room
                   const string & sPlayerMessage,  // what to tell the player
                   const string & sOthersDepartMessage,  // tell people in original room 
-                  const string & sOthersArrriveMessage) // tell people in new room
+                  const string & sOthersArriveMessage) // tell people in new room
 {
   tRoom * r = FindRoom (vnum); // find the destination room (throws exception if not there)
   SendToAll (sOthersDepartMessage, p, p->room);  // tell others where s/he went
   p->room = vnum;  // move to new room
   *p << sPlayerMessage; // tell player
+  SendToAll (sOthersArriveMessage, p, p->room);  // tell others ws/he has arrived  
   p->DoCommand ("look");   // look around new room  
-  SendToAll (sOthersArrriveMessage, p, p->room);  // tell others ws/he has arrived  
 } // end of PlayerToRoom
 
 void DoDirection (tPlayer * p, const string & sArgs)
