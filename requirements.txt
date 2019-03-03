@@ -1,4 +1,1 @@
-telnetlib
-glob
-time
 pytest
