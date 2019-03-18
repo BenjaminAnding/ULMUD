@@ -139,11 +139,12 @@ void tPlayer::ProcessRead ()
   // I make it static to save allocating a buffer each time.
   // Hopefully this function won't be called recursively.
   static vector<char> buf (1000);  // reserve 1000 bytes for reading into
-  
+ 
   int nRead = read (s, &buf [0], buf.size ());
   
   if (nRead == -1)
     {
+    close (s);
     if (errno != EWOULDBLOCK)
       perror ("read from player");
     return;
@@ -154,8 +155,8 @@ void tPlayer::ProcessRead ()
     close (s);
     cerr << "Connection " << s << " closed" << endl;
     s = NO_SOCKET;
-    DoCommand ("quit");  // tell others the s/he has left
     return;
+    DoCommand ("quit");  // tell others the s/he has left
     }
 
   inbuf += std::string (&buf [0], nRead);    /* add to input buffer */
@@ -172,7 +173,6 @@ void tPlayer::ProcessRead ()
 
     ProcessPlayerInput (this, Trim (sLine));  /* now, do something with it */        
     }
-    
 } /* end of tPlayer::ProcessRead */
 
 /* Here when we can send stuff to the player. We are allowing for large
