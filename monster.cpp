@@ -78,16 +78,14 @@ void monster::MonsterMove (monster * m, const std::string & direction)
     // find the exit
     tExitMap::const_iterator exititer = r->exits.find (direction);
     
-    if (exititer == r->exits.end ())
+    // ensure that the direction is valid
+    if (exititer != r->exits.end ())
     {
-        ;
-    }
-    
     // move player
     monster::MonsterToRoom (m, exititer->second,
                    m->name + " goes " + direction + "\r\n",
                    m->name + " enters.\r\n");
-    
+    }
 } // end of monsterMove
 
 void monster::MonsterToRoom (monster * m,       // which player

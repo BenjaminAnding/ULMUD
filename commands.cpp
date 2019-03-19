@@ -395,7 +395,7 @@ void ProcessCommand (tPlayer * p, istream & sArgs)
  
     command_iter->second (p, sArgs);  // execute command (eg. DoLook)
     }
-    DoMonsterMove();
+    //DoMonsterMove ();
 } /* end of ProcessCommand */
 
 
