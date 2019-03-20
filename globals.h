@@ -29,3 +29,4 @@ extern std::set<std::string, ciLess> directionset;
 extern bool   bStopNow;      // when set, the MUD shuts down
 extern time_t tLastMessage;      // time we last sent a periodic message 
 extern int    iControl;  // socket for accepting new connections 
+extern time_t tLastMonsterMove; // time since last monster movement

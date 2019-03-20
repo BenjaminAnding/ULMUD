@@ -21,6 +21,7 @@ using namespace std;
 // global variables
 bool   bStopNow = false;      // when set, the MUD shuts down
 time_t tLastMessage = 0;      // time we last sent a periodic message 
+time_t tLastMonsterMove = 0;  // time since last monster movement
 int    iControl = NO_SOCKET;  // socket for accepting new connections 
 
 

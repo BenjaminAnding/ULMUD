@@ -27,11 +27,11 @@ void LoadThings ();
 int InitComms ();
 void MainLoop ();
 void CloseComms ();
-   
+
 
 // called approximately every 0.5 seconds - handle things like fights here
 void PeriodicUpdates ()
-  {
+{
     //      The example below just sends a message every MESSAGE_INTERVAL seconds.
     // send new command if it is time
   if (time (NULL) > (tLastMessage + MESSAGE_INTERVAL))
@@ -41,13 +41,29 @@ void PeriodicUpdates ()
             tPlayer * p = *i;
             p->Save();
         }
-        
+
     tLastMessage = time (NULL);
-        
+
     }
-    
-  } // end of PeriodicUpdates
-  
+
+  if (time (NULL) > (tLastMonsterMove + rand() % 15 + 10))
+    {
+    std::string arrayNum[4] = {"n", "e", "s", "w"};
+    for (monsterListIterator listiter1 = monmap.begin ();
+         listiter1 != monmap.end ();
+         listiter1++)
+    {
+        int RandIndex = rand() % 4;
+        monster *m = *listiter1;
+        m->MonsterMove(m, arrayNum[RandIndex]);
+    } // end of looping through all monsters
+
+    tLastMonsterMove = time (NULL);
+
+    }
+
+} // end of PeriodicUpdates
+
 
 // main program
 int main ()
