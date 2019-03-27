@@ -82,6 +82,7 @@ void LoadRooms ()
     {
     int vnum;
     fRooms >> vnum;
+    roomnums.push_back(vnum);
     fRooms.ignore (numeric_limits<int>::max(), '\n'); // skip rest of this line
     string description;
     getline (fRooms, description);
@@ -157,12 +158,14 @@ void LoadMon ()
     {
         int vnum;
         fMon >> vnum;
+        maxMonNum = vnum;
         //std::cerr << vnum << std::endl;
         int room;
         fMon >> room;
         //std::cerr << room << std::endl;
         std::string monname;
         fMon >> monname;
+        monnames.push_back(monname);
         //std::getline (fMon, monname);
         //std::cerr << monname << std::endl;
         

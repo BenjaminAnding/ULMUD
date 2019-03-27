@@ -20,13 +20,20 @@ using namespace std;
 
 // global variables
 bool   bStopNow = false;      // when set, the MUD shuts down
+bool   firstRun = true;       // boolean for first time run, for generating random seed
 time_t tLastMessage = 0;      // time we last sent a periodic message 
 time_t tLastMonsterMove = 0;  // time since last monster movement
+time_t tLastMonsterSpawn = 0; // time since last monster spawn
+int    maxMonNum = 0;         // current largest monster vnum, for spawning new mons
 int    iControl = NO_SOCKET;  // socket for accepting new connections 
 
 
 //list of all monsters
 monsterList monmap;
+// all monster names
+vector<string> monnames;
+// all valid room numbers
+vector<int> roomnums;
 // list of all connected players
 tPlayerList playerlist;
 // map of all rooms
