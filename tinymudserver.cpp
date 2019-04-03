@@ -46,6 +46,7 @@ void PeriodicUpdates ()
 
     }
 
+     // move monsters every 10-15 seconds
   if (time (NULL) > (tLastMonsterMove + rand() % 15 + 10))
     {
     std::string arrayNum[4] = {"n", "e", "s", "w"};
@@ -60,6 +61,29 @@ void PeriodicUpdates ()
 
     tLastMonsterMove = time (NULL);
 
+    }
+
+    // if the server is not empty
+    // spawn a monster in a random room once every minute
+  if (!playerlist.empty() && time (NULL) > (tLastMonsterSpawn + MONSTER_SPAWN_INTERVAL))
+    {        
+        if (firstRun)
+        {
+            srand(time (NULL)); // seed for random value
+            monnames.erase(monnames.end() - 1); // get rid of empty monname at end
+            firstRun = false;
+        }
+
+        // find a random room & monster name
+        int randRoomNum = roomnums.front() + rand() % ((roomnums.back() + 1) - roomnums.front());
+        int randNameNum = rand() % monnames.size();
+
+        // create a new random monster in a random room, increase its vnum
+        maxMonNum++;
+        monster * m = new monster(maxMonNum, randRoomNum, monnames.at(randNameNum));
+        monmap.push_back(m);
+
+        tLastMonsterSpawn = time (NULL);
     }
 
 } // end of PeriodicUpdates

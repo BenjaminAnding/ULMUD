@@ -1,13 +1,18 @@
 #include <set>
 #include <string>
 #include <map>
+#include <vector>
 
 #include "monster.h"  // for monster list
 #include "player.h"   // for player list
 #include "room.h"     // for rooms and exits
 
-
+// list of all monsters
 extern monsterList monmap;
+// list of monster names
+extern std::vector<std::string> monnames;
+// list of valid room numbers
+extern std::vector<int> roomnums;
 // bad player names
 extern std::set<std::string, ciLess> badnameset;
 // blocked IP addresses
@@ -27,6 +32,9 @@ extern std::set<std::string, ciLess> directionset;
 
 // global variables
 extern bool   bStopNow;      // when set, the MUD shuts down
+extern bool   firstRun;  // boolean for first time run, for generating rand seed
 extern time_t tLastMessage;      // time we last sent a periodic message 
-extern int    iControl;  // socket for accepting new connections 
+extern int    iControl;  // socket for accepting new connections
+extern int    maxMonNum; // current largest monster vnum, for spawning new mons
 extern time_t tLastMonsterMove; // time since last monster movement
+extern time_t tLastMonsterSpawn; // time since last monster spawn
