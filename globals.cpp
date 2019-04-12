@@ -22,6 +22,7 @@ using namespace std;
 bool   bStopNow = false;      // when set, the MUD shuts down
 bool   firstRun = true;       // boolean for first time run, for generating random seed
 time_t tLastMessage = 0;      // time we last sent a periodic message 
+time_t tLastDeathCheck = 0;   // time since last death check
 time_t tLastMonsterMove = 0;  // time since last monster movement
 time_t tLastMonsterSpawn = 0; // time since last monster spawn
 int    maxMonNum = 0;         // current largest monster vnum, for spawning new mons
