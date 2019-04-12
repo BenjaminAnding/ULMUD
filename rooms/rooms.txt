@@ -1,18 +1,48 @@
-1000 
+1000
 Starting room (room 1000).%rYou are standing in a large lobby.%r%rAs you glance around the room, you notice a somewhat large heron statue in the center of the room.
 n 1004 s 1001 e 1002 w 1003
 1001
 Room 1001.%rYou are in room 1001. It appears to be a parking lot of some kind.%rThere is a large hotel on the other side of the lot, but all of the action seems to be going on within the convention center in front of you.
-n 1000
+n 1000 e 1006 w 1007
 1002
 Room 1002.%rYou are in room 1002. You are in one of the ground floor bathrooms. There is a stall to the east.
-w 1000 e 1005
+n 1012 s 1006 w 1000 e 1005
 1003
 Room 1003.%rThis is a stairwell that leads down to the main attraction! Unfortunately the way down is blocked at the moment.
-e 1000
+n 1008 s 1007 e 1000
 1004
 Room 1004.%rThis is a twin set of decorative elevators, they seem to be out of order for the moment.
-s 1000
+s 1000 e 1012
 1005
 Room 1005.%rThis is a bathroom stall, let's not spend more time here than need be.
 w 1002
+1006
+Room 1006.%rThis is a side entrance from the parking lot. It leads to the bathrooms or some kind of utility closet.
+n 1002 e 1011 w 1001
+1007
+Room 1007.%rThis is a side entrance from the parking lot that leads to a stairwell.
+n 1003 e 1001
+1008
+Room 1008.%You are in Room 1008. You are in a waiting room with a window between you and the administrative desks.
+n 1009 s 1003 w 1010
+1009
+Room 1009.%You are in Room 1009. You are in the administrative part of the waiting area. %rThere are papers all over the floor; it's a mess in here.
+s 1008
+1010
+Room 1010.%rThis is a hallway that leads to a number of rooms and offices. It's hard to see with the lights blinking on and off.
+n 1014 e 1008
+1011
+Room 1011.%rThis is a utility closet. There's an unpleasant smell coming from something in here.
+w 1006
+1012
+Room 1012.%rYou are in Room 1012. You are in the cafeteria. It's empty but there are a few trays left on the tables.
+n 1013 s 1002 w 1004
+1013
+Room 1013.%rYou are in Room 1013. This is a dining room for more important meals and get togethers. There are massive windows looking outside.
+s 1012
+1014
+Room 1014.%rThis is the first office in the hallway. The lights are blinking in here too.
+n 1015 s 1010
+1015
+Room 1015.%rThis is another office. The door was cracked open, and the furniture is pushed around. What happened in here?
+s 1014
