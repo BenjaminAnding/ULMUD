@@ -237,3 +237,12 @@ void SendToAll (const std::string & message, const tPlayer * ExceptThis, const i
             sendToPlayer (message, ExceptThis, InRoom)); 
 } /* end of SendToAll */
 
+
+void tPlayer::DeathFunction ()
+{
+    std::string deathAnnouncement =  "\r\n" + playername + " has died \r\n";
+    if (HaveFlag("dead"))
+        SendToAll ( deathAnnouncement );
+}
+		
+	
