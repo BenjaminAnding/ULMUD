@@ -163,11 +163,14 @@ void LoadMon ()
         int room;
         fMon >> room;
         //std::cerr << room << std::endl;
+        int monhealth;
+        fMon >> monhealth;
         std::string monname;
         fMon >> monname;
         monnames.push_back(monname);
         //std::getline (fMon, monname);
         //std::cerr << monname << std::endl;
+        healthmap.insert({monname, monhealth}); // add monster types and their respective health values to a map
         
         // give up if no vnum or description
         if (vnum == 0 || monname.empty ()) {
@@ -175,7 +178,7 @@ void LoadMon ()
             break;
         }
         
-        monster * m = new monster (vnum, room, monname);
+        monster * m = new monster (vnum, room, monhealth, monname);
         monmap.push_back (m);
     }
 }

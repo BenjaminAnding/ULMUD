@@ -27,8 +27,11 @@ extern std::map<std::string, tHandler> commandmap;
 extern std::map<tConnectionStates, tHandler> statemap;
 // messages
 extern std::map<std::string, std::string, ciLess> messagemap;
+// map of monster types and their health values
+extern std::map<std::string, int> healthmap;
 // directions
 extern std::set<std::string, ciLess> directionset;
+
 
 // global variables
 extern bool   bStopNow;      // when set, the MUD shuts down

@@ -19,10 +19,11 @@ class monster
 public:
     int mnum;         // Object's Number
     int room;
+    int monhealth;
     std::string name; // Name of Object
     
     //constructor
-    monster (int mnum1, int room1, std::string name1) : mnum (mnum1), room (room1), name (name1) {}
+    monster (int mnum1, int room1, int monhealth1, std::string name1) : mnum (mnum1), room (room1), monhealth (monhealth1),  name (name1) {}
 
     void Save ();
     void MonsterMove (monster * m, const std::string & direction);

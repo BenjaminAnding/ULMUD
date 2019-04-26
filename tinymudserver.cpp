@@ -77,10 +77,12 @@ void PeriodicUpdates ()
         // find a random room & monster name
         int randRoomNum = roomnums.front() + rand() % ((roomnums.back() + 1) - roomnums.front());
         int randNameNum = rand() % monnames.size();
+        std::string randName = monnames.at(randNameNum); // get the name of the rand monster to spawn
+        int monHealth = healthmap.find(randName)->second; // get the health value corresponding to the rand monster
 
         // create a new random monster in a random room, increase its vnum
         maxMonNum++;
-        monster * m = new monster(maxMonNum, randRoomNum, monnames.at(randNameNum));
+        monster * m = new monster(maxMonNum, randRoomNum, monHealth, randName);
         monmap.push_back(m);
 
         tLastMonsterSpawn = time (NULL);

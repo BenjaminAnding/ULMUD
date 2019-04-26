@@ -44,6 +44,8 @@ map<string, tHandler> commandmap;
 map<tConnectionStates, tHandler> statemap;
 // messages
 map<string, string, ciLess> messagemap;
+// map of monster types and their health values
+map<string, int> healthmap;
 // directions
 set<string, ciLess> directionset;
 // bad player names
