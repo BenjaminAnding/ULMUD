@@ -63,7 +63,7 @@ public:
     {
     connstate = eAwaitingName;
     room = INITIAL_ROOM;
-    //alive = true;
+    alive = true;
     flags.clear ();
     prompt = "Enter your name, or 'new' to create a new character ...  "; 
     }
@@ -103,9 +103,8 @@ public:
   
   void DoCommand (const std::string & command);  // simulate player input (eg. look)
   std::string GetAddress () const { return address; }  // return player IP address
-
-  void DeathFunction();   // runs a series of actions related to the player dying
   
+  void DeathFunction();   // runs a series of actions related to the player dying
 };
   
 // player list type

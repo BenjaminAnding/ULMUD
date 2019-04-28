@@ -241,8 +241,17 @@ void SendToAll (const std::string & message, const tPlayer * ExceptThis, const i
 void tPlayer::DeathFunction ()
 {
     std::string deathAnnouncement =  "\r\n" + playername + " has died \r\n";
-    if (HaveFlag("dead"))
+    if (HaveFlag("dead") || alive == false)
+    {
         SendToAll ( deathAnnouncement );
+        string flag = "dead";  
+        flags.erase (flag);    // clear dead flag
+        alive = true; 
+        room = INITIAL_ROOM;
+        DoCommand("say I can't believe I just died and am now in the starting area.");
+        //sendToPlayer("You Have Died.");
+        //sendToPlayer("You have been transported back to the starting area.");
+    }
+
 }
 		
-	
