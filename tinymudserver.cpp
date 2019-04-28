@@ -64,11 +64,10 @@ void PeriodicUpdates ()
     }
   if (time (NULL) > tLastDeathCheck)
     {
-        for (tPlayerListIterator i; i == playerlist.end(); i++) {
-            //SendToAll(i)
+        for (tPlayerListIterator i = playerlist.begin(); i != playerlist.end(); i++) {
             tPlayer * p = *i;
             p->DeathFunction();
-	    //if (p->HaveFlag("dead"))
+            //
         }
         tLastDeathCheck = time (NULL);
     }
