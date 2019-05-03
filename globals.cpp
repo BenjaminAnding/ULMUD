@@ -24,6 +24,7 @@ bool   firstRun = true;       // boolean for first time run, for generating rand
 time_t tLastMessage = 0;      // time we last sent a periodic message 
 time_t tLastMonsterMove = 0;  // time since last monster movement
 time_t tLastMonsterSpawn = 0; // time since last monster spawn
+time_t tLastMonsterHealthCheck = 0; // time since last monster spawn
 int    maxMonNum = 0;         // current largest monster vnum, for spawning new mons
 int    iControl = NO_SOCKET;  // socket for accepting new connections 
 

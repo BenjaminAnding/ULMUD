@@ -85,6 +85,19 @@ void PeriodicUpdates ()
 
         tLastMonsterSpawn = time (NULL);
     }
+    if (time (NULL) > (tLastMonsterHealthCheck))
+    {
+        for (monsterListIterator listiter1 = monmap.begin (); listiter1 != monmap.end ();
+            listiter1++)
+        {
+            monster *m = *listiter1;
+            if (m->monhealth <=0 )
+            {
+                SendToAll("\r\n"+m->name+" has perished\r\n");
+                listiter1 = monmap.erase(listiter1); // or before C++11 monmap.erase(listiter1++);
+            }
+        }
+    }
 
 } // end of PeriodicUpdates
 
