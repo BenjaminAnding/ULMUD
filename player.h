@@ -42,6 +42,7 @@ public:
   std::string password;    // their password
   int badPasswordCount;   // password guessing attempts
   int room;         // what room they are in
+  bool alive;       // shows if player is alive
   bool closing;     // true if they are about to leave us
   std::set<std::string, ciLess> flags;  // player flags
 
@@ -62,6 +63,7 @@ public:
     {
     connstate = eAwaitingName;
     room = INITIAL_ROOM;
+    alive = true;
     flags.clear ();
     prompt = "Enter your name, or 'new' to create a new character ...  "; 
     }
@@ -102,6 +104,7 @@ public:
   void DoCommand (const std::string & command);  // simulate player input (eg. look)
   std::string GetAddress () const { return address; }  // return player IP address
   
+  void DeathFunction();   // runs a series of actions related to the player dying
 };
   
 // player list type

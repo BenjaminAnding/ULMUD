@@ -62,6 +62,16 @@ void PeriodicUpdates ()
     tLastMonsterMove = time (NULL);
 
     }
+  if (time (NULL) > tLastDeathCheck)
+    {
+        for (tPlayerListIterator i = playerlist.begin(); i != playerlist.end(); i++) {
+            tPlayer * p = *i;
+            p->DeathFunction();
+            //
+        }
+        tLastDeathCheck = time (NULL);
+    }
+	    
 
     // if the server is not empty
     // spawn a monster in a random room once every minute

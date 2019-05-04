@@ -31,10 +31,11 @@ extern std::map<std::string, std::string, ciLess> messagemap;
 extern std::set<std::string, ciLess> directionset;
 
 // global variables
-extern bool   bStopNow;      // when set, the MUD shuts down
-extern bool   firstRun;  // boolean for first time run, for generating rand seed
-extern time_t tLastMessage;      // time we last sent a periodic message 
-extern int    iControl;  // socket for accepting new connections
-extern int    maxMonNum; // current largest monster vnum, for spawning new mons
-extern time_t tLastMonsterMove; // time since last monster movement
-extern time_t tLastMonsterSpawn; // time since last monster spawn
+extern bool   bStopNow;           // when set, the MUD shuts down
+extern bool   firstRun;           // boolean for first time run, for generating rand seed
+extern time_t tLastMessage;       // time we last sent a periodic message 
+extern time_t tLastDeathCheck;    // time since last death check
+extern int    iControl;           // socket for accepting new connections
+extern int    maxMonNum;          // current largest monster vnum, for spawning new mons
+extern time_t tLastMonsterMove;   // time since last monster movement
+extern time_t tLastMonsterSpawn;  // time since last monster spawn
