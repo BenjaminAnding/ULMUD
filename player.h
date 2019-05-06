@@ -3,10 +3,14 @@
 
 #include <set>
 #include <list>
+#include <sstream>
 
 #include <unistd.h>   // for close
 #include "strings.h"  // for ciLess
 #include "constants.h"  // for NO_SOCKET
+
+#define MAKE_STRING(msg) \
+(((std::ostringstream&) (std::ostringstream() << std::boolalpha << msg)).str())
 
 // connection states - add more to have more complex connection dialogs 
 typedef enum

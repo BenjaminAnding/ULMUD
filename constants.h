@@ -8,6 +8,7 @@ static const int PORT = 4000;                 // incoming connections port
 static const std::string PROMPT = "> ";       // normal player prompt
 static const int INITIAL_ROOM = 1000;         // what room they start in
 static const int BASE_HEALTH = 20;            // base health value for all players
+static const int BASE_MON_DAMAGE = 3;         // base damage value for monsters
 static const int MAX_PASSWORD_ATTEMPTS = 3;   // times they can try a password
 static const int MESSAGE_INTERVAL = 160;      // seconds between tick messages
 static const int MONSTER_SPAWN_INTERVAL = 60; // seconds between monster spawns

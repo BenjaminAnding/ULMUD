@@ -66,8 +66,11 @@ void PeriodicUpdates ()
     {
         for (tPlayerListIterator i = playerlist.begin(); i != playerlist.end(); i++) {
             tPlayer * p = *i;
+            if (p->health <= 0)
+            {
+                p->flags.insert("dead");
+            }
             p->DeathFunction();
-            //
         }
         tLastDeathCheck = time (NULL);
     }
@@ -97,7 +100,8 @@ void PeriodicUpdates ()
 
         tLastMonsterSpawn = time (NULL);
     }
-    if (time (NULL) > (tLastMonsterHealthCheck))
+  
+  if (time (NULL) > (tLastMonsterHealthCheck))
     {
         for (monsterListIterator listiter1 = monmap.begin (); listiter1 != monmap.end ();
             listiter1++)
@@ -105,11 +109,45 @@ void PeriodicUpdates ()
             monster *m = *listiter1;
             if (m->monhealth <=0 )
             {
-                SendToAll("\r\n"+m->name+" has perished\r\n");
+                SendToAll("\r\n"+m->name+" has perished.\r\n> ");
                 listiter1 = monmap.erase(listiter1); // or before C++11 monmap.erase(listiter1++);
             }
         }
     }
+  
+  // beginning of monster attack
+  if (time (NULL) > (tLastMonsterAttack + 3))
+  {
+    // check for monsters with hostile behavior
+    for (monsterListIterator listiter1 = monmap.begin ();
+         listiter1 != monmap.end ();
+         listiter1++)
+    {
+        monster *hostileMon = *listiter1;
+        
+        if (hostileMon->behavior == "hostile")
+        {     
+            for (tPlayerListIterator i = playerlist.begin(); 
+                i != playerlist.end(); 
+                i++) 
+            {
+                tPlayer * p = *i;
+                if (hostileMon->room == p->room) // check for hostile mons in the same room as players
+                {
+                    *p << hostileMon->name << " swipes at you, dealing " << BASE_MON_DAMAGE << " damage.\r\n";
+                    p->health = p->health - 3;
+                }
+                else
+                {
+                    hostileMon->behavior = "neutral"; // if room is empty, reset monster's behavior
+                    hostileMon->immobile = false;
+                }
+            }
+        }
+        tLastMonsterAttack = time (NULL);
+    }
+
+  }
 
 } // end of PeriodicUpdates
 

@@ -403,6 +403,8 @@ void DoAttack (tPlayer * p, istream & sArgs)
                 inRoom = 0;
                 mTarget->monhealth = mTarget->monhealth - dam;
                 *p << "You throw a punch at " << mTarget->name << ", dealing " << dam << " damage.\r\n";
+                mTarget->immobile = true;
+                mTarget->behavior = "hostile";
                 //*p << monname << " has " << mTarget->monhealth << " health remaining.\r\n";
             }
         }

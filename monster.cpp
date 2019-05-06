@@ -79,7 +79,7 @@ void monster::MonsterMove (monster * m, const std::string & direction)
     tExitMap::const_iterator exititer = r->exits.find (direction);
     
     // ensure that the direction is valid
-    if (exititer != r->exits.end ())
+    if (exititer != r->exits.end () && !immobile)
     {
     // move player
     monster::MonsterToRoom (m, exititer->second,
@@ -120,4 +120,3 @@ void monster::MonsterSendToAll (const std::string & message, const int InRoom)
     std::for_each (playerlist.begin (), playerlist.end (),
               monsterSendToPlayer (message, InRoom));
 } /* end of MonsterSendToAll */
-

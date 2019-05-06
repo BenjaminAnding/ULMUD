@@ -43,3 +43,4 @@ extern int    maxMonNum; // current largest monster vnum, for spawning new mons
 extern time_t tLastMonsterMove; // time since last monster movement
 extern time_t tLastMonsterSpawn; // time since last monster spawn
 extern time_t tLastMonsterHealthCheck; // time since last monster health check
+extern time_t tLastMonsterAttack; // time since last time monster attacked

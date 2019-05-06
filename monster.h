@@ -20,6 +20,8 @@ public:
     int mnum;         // Object's Number
     int room;
     int monhealth;
+    bool immobile; // Whether the monster can move
+    std::string behavior; // Whether the monster is hostile or friendly
     std::string name; // Name of Object
     
     //constructor
