@@ -1,0 +1,5 @@
+...:Dude:...
+...:bro:>
+>:goto:Go to which room?
+>:goto 1000:You go to room 1000
+>:quit:See you next time!

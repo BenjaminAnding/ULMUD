@@ -1,0 +1,5 @@
+...:Ben:...
+...:ben:>
+>:look:Starting room (room 1000).
+>:l:Starting room (room 1000).
+>:quit:See you next time!
