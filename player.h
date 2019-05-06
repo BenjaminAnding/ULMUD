@@ -42,6 +42,7 @@ public:
   std::string password;    // their password
   int badPasswordCount;   // password guessing attempts
   int room;         // what room they are in
+  int health;       // player's health value
   bool alive;       // shows if player is alive
   bool closing;     // true if they are about to leave us
   std::set<std::string, ciLess> flags;  // player flags
@@ -63,6 +64,7 @@ public:
     {
     connstate = eAwaitingName;
     room = INITIAL_ROOM;
+    health = BASE_HEALTH;
     alive = true;
     flags.clear ();
     prompt = "Enter your name, or 'new' to create a new character ...  "; 

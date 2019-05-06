@@ -80,6 +80,7 @@ void tPlayer::Load ()
   // read player details
   f >> password;
   f >> room;
+  f >> health;
   f.ignore (numeric_limits<int>::max(), '\n'); // skip rest of this line  
   LoadSet (f, flags);   // player flags (eg. can_shutdown) 
   
@@ -97,6 +98,7 @@ void tPlayer::Save ()
   // write player details
   f << password << endl;
   f << room << endl;
+  f << health << endl;
   copy (flags.begin (), flags.end (), ostream_iterator<std::string> (f, " "));
   f << endl;
   

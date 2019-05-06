@@ -376,6 +376,45 @@ void DoMonsterMove ()
     }   /* end of looping through all monsters */
 }
 
+void DoAttack (tPlayer * p, istream & sArgs)
+{
+    // get monster name from args
+    string monname (istreambuf_iterator<char>(sArgs), {});
+    monname[0] = toupper(monname[0]);
+    NoMore (p, sArgs);
+    bool here = false;
+
+    if (monname.empty())
+        *p << "Attack what?\r\n";
+
+    for (monsterListIterator listiter1 = monmap.begin ();
+     listiter1 != monmap.end ();
+     listiter1++)
+    {
+        monster *inRoom = *listiter1;
+        if (inRoom->room == p->room)  // check if monster is in the same room
+        {
+            if (inRoom->name == monname && !here)
+            {   
+                here = true;
+                //int dam = rand() % (9 - 7 + 1) + 7; // calculate damage value; base damage is 7-9
+                int dam = 7;
+                monster *mTarget = inRoom;
+                inRoom = 0;
+                mTarget->monhealth = mTarget->monhealth - dam;
+                *p << "You throw a punch at " << mTarget->name << ", dealing " << dam << " damage.\r\n";
+                //*p << monname << " has " << mTarget->monhealth << " health remaining.\r\n";
+            }
+        }
+    }   /* end of looping through all monsters */
+}
+
+void DoHealthCheck (tPlayer * p, istream & sArgs)
+{
+    NoMore (p, sArgs);
+    *p << "Your current health is " << p->health << "/" << BASE_HEALTH << ".\r\n";
+}
+
 void ProcessCommand (tPlayer * p, istream & sArgs)
 {
 
@@ -398,28 +437,29 @@ void ProcessCommand (tPlayer * p, istream & sArgs)
     //DoMonsterMove ();
 } /* end of ProcessCommand */
 
-
-
 void LoadCommands ()
   {
-  commandmap ["look"]     = DoLook;     // look around
-  commandmap ["l"]        = DoLook;     // synonymm for look
-  commandmap ["quit"]     = DoQuit;     // bye bye
-  commandmap ["say"]      = DoSay;      // say something
-  commandmap ["\""]       = DoSay;      // synonym for say
-  commandmap ["tell"]     = DoTell;     // tell someone
-  commandmap ["shutdown"] = DoShutdown; // shut MUD down
-  commandmap ["help"]     = DoHelp;     // show help message
-  commandmap ["goto"]     = DoGoTo;     // go to room
-  commandmap ["transfer"] = DoTransfer; // transfer someone else
-  commandmap ["setflag"]  = DoSetFlag;  // set a player's flag
-  commandmap ["clearflag"]= DoClearFlag;  // clear a player's flag
-  commandmap ["save"]     = DoSave;      // save a player
-  commandmap ["chat"]     = DoChat;      // chat
-  commandmap ["emote"]    = DoEmote;     // emote
-  commandmap ["who"]      = DoWho;       // who is on?
-  commandmap ["kick"]     = DoKick;      // screw that guy
-  commandmap ["wait"]     = DoWait;      // wait for a while
-  commandmap ["."]        = DoWait;      // synonym for wait
+  commandmap ["look"]     = DoLook;        // look around
+  commandmap ["l"]        = DoLook;        // synonymm for look
+  commandmap ["quit"]     = DoQuit;        // bye bye
+  commandmap ["say"]      = DoSay;         // say something
+  commandmap ["\""]       = DoSay;         // synonym for say
+  commandmap ["tell"]     = DoTell;        // tell someone
+  commandmap ["shutdown"] = DoShutdown;    // shut MUD down
+  commandmap ["help"]     = DoHelp;        // show help message
+  commandmap ["goto"]     = DoGoTo;        // go to room
+  commandmap ["transfer"] = DoTransfer;    // transfer someone else
+  commandmap ["setflag"]  = DoSetFlag;     // set a player's flag
+  commandmap ["clearflag"]= DoClearFlag;   // clear a player's flag
+  commandmap ["save"]     = DoSave;        // save a player
+  commandmap ["chat"]     = DoChat;        // chat
+  commandmap ["emote"]    = DoEmote;       // emote
+  commandmap ["who"]      = DoWho;         // who is on?
+  commandmap ["kick"]     = DoKick;        // screw that guy
+  commandmap ["wait"]     = DoWait;        // wait for a while
+  commandmap ["."]        = DoWait;        // synonym for wait
+  commandmap ["attack"]   = DoAttack;      // attack a monster
+  commandmap ["health"]   = DoHealthCheck; // show the player's current health value
+  commandmap ["h"]        = DoHealthCheck; // synonym for health 
   } // end of LoadCommands
 
