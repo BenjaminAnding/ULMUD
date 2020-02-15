@@ -110,7 +110,9 @@ void PeriodicUpdates ()
             if (m->monhealth <=0 )
             {
                 SendToAll("\r\n"+m->name+" has perished.\r\n> ");
+        		tPlayer *aggressor = (tPlayer*)m->aggressor;
                 listiter1 = monmap.erase(listiter1); // or before C++11 monmap.erase(listiter1++);
+				aggressor->score = aggressor->score + 1;
             }
         }
     }

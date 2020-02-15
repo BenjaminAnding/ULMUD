@@ -34,7 +34,6 @@ class tPlayer
 private:
   int s;              // socket they connected on
   int port;           // port they connected on
- 
   std::string outbuf;      // pending output
   std::string inbuf;       // pending input
   std::string address;     // address player is from
@@ -46,6 +45,7 @@ public:
   std::string password;    // their password
   int badPasswordCount;   // password guessing attempts
   int room;         // what room they are in
+  int score;
   int health;       // player's health value
   bool alive;       // shows if player is alive
   bool closing;     // true if they are about to leave us

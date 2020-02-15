@@ -432,7 +432,10 @@ void DoAttack (tPlayer * p, istream & sArgs)
         }
     }   /* end of looping through all monsters */
 }
-
+void DoScore(tPlayer * p, istream & sArgs) 
+{
+	SendToAll(p->playername+"'s score is "+to_string(p->score)+"\n");
+}
 void DoHealthCheck (tPlayer * p, istream & sArgs)
 {
     NoMore (p, sArgs);
@@ -486,5 +489,6 @@ void LoadCommands ()
   commandmap ["kill"]	  = DoAttack;	   // synonym for attack
   commandmap ["health"]   = DoHealthCheck; // show the player's current health value
   commandmap ["h"]        = DoHealthCheck; // synonym for health 
+  commandmap["?"]		  = DoScore; 
   } // end of LoadCommands
 
