@@ -124,7 +124,7 @@ void PeriodicUpdates ()
          listiter1++)
     {
         monster *hostileMon = *listiter1;
-        
+        tPlayer *aggressor = (tPlayer*)hostileMon->aggressor;
         if (hostileMon->behavior == "hostile")
         {     
             for (tPlayerListIterator i = playerlist.begin(); 
@@ -132,18 +132,21 @@ void PeriodicUpdates ()
                 i++) 
             {
                 tPlayer * p = *i;
-                if (hostileMon->room == p->room) // check for hostile mons in the same room as players
-                {
-                    *p << hostileMon->name << " swipes at you, dealing " << BASE_MON_DAMAGE << " damage.\r\n";
-                    p->health = p->health - 3;
-                }
-                else
-                {
-                    hostileMon->behavior = "neutral"; // if room is empty, reset monster's behavior
-                    hostileMon->immobile = false;
-                }
-            }
-        }
+				if (p == aggressor) 
+				{
+                	if (hostileMon->room == p->room) // check for hostile mons in the same room as players
+                		{
+                    		*p << hostileMon->name << " swipes at you, dealing " << BASE_MON_DAMAGE << " damage.\r\n";
+                    		p->health = p->health - 3;
+                		}
+                	else
+                	{
+                    	hostileMon->behavior = "neutral"; // if room is empty, reset monster's behavior
+                    	hostileMon->immobile = false;
+                	}
+            	}
+        	}
+		}
         tLastMonsterAttack = time (NULL);
     }
 

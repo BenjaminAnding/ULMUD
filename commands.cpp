@@ -387,6 +387,27 @@ void DoAttack (tPlayer * p, istream & sArgs)
     if (monname.empty())
         *p << "Attack what?\r\n";
 
+    for (tPlayerListIterator listiter1 = playerlist.begin ();
+     listiter1 != playerlist.end ();
+     listiter1++)
+    {
+        tPlayer *inRoom = *listiter1;
+        if (inRoom->room == p->room)  // check if player is in the same room
+        {
+            if (inRoom->playername == monname && !here)
+            {   
+                here = true;
+                //int dam = rand() % (9 - 7 + 1) + 7; // calculate damage value; base damage is 7-9
+                int dam = 7;
+                tPlayer *pTarget = inRoom;
+                inRoom = 0;
+                pTarget->health = pTarget->health - dam;
+                *p << "You throw a punch at " << pTarget->playername << ", dealing " << dam << " damage.\r\n";
+                *pTarget << p->playername << " throws a punch at you, dealing " << dam << " damage!\r\n";
+                //*p << monname << " has " << mTarget->monhealth << " health remaining.\r\n";
+            }
+        }
+    }
     for (monsterListIterator listiter1 = monmap.begin ();
      listiter1 != monmap.end ();
      listiter1++)
@@ -405,6 +426,7 @@ void DoAttack (tPlayer * p, istream & sArgs)
                 *p << "You throw a punch at " << mTarget->name << ", dealing " << dam << " damage.\r\n";
                 mTarget->immobile = true;
                 mTarget->behavior = "hostile";
+				mTarget->aggressor = (int*)p;
                 //*p << monname << " has " << mTarget->monhealth << " health remaining.\r\n";
             }
         }
@@ -460,7 +482,8 @@ void LoadCommands ()
   commandmap ["kick"]     = DoKick;        // screw that guy
   commandmap ["wait"]     = DoWait;        // wait for a while
   commandmap ["."]        = DoWait;        // synonym for wait
-  commandmap ["attack"]   = DoAttack;      // attack a monster
+  commandmap ["attack"]   = DoAttack;      // attack an entity
+  commandmap ["kill"]	  = DoAttack;	   // synonym for attack
   commandmap ["health"]   = DoHealthCheck; // show the player's current health value
   commandmap ["h"]        = DoHealthCheck; // synonym for health 
   } // end of LoadCommands
