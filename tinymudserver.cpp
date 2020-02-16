@@ -28,7 +28,6 @@ int InitComms ();
 void MainLoop ();
 void CloseComms ();
 
-
 // called approximately every 0.5 seconds - handle things like fights here
 void PeriodicUpdates ()
 {
@@ -78,7 +77,7 @@ void PeriodicUpdates ()
 
     // if the server is not empty
     // spawn a monster in a random room once every minute
-  if (!playerlist.empty() && time (NULL) > (tLastMonsterSpawn + MONSTER_SPAWN_INTERVAL))
+  if (!playerlist.empty() && time (NULL) > (tLastMonsterSpawn + MONSTER_SPAWN_INTERVAL) && maxMonNum <= 99)
     {        
         if (firstRun)
         {

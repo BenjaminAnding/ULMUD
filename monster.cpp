@@ -110,7 +110,7 @@ struct monsterSendToPlayer
     // send to this player
     void operator() (tPlayer * p)
     {
-        if (p->IsPlaying () && (room == 0 || p->room == room))
+        if (p->IsPlaying () && (room == 0 || p->room == room) && !p->usingbb)
             *p << message;
     } // end of operator()
 };  // end of monsterSendToPlayer

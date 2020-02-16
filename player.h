@@ -49,6 +49,7 @@ public:
   int health;       // player's health value
   bool alive;       // shows if player is alive
   bool closing;     // true if they are about to leave us
+  bool usingbb;		// true if player is using a board
   std::set<std::string, ciLess> flags;  // player flags
 
   tPlayer (const int sock, const int p, const std::string a)

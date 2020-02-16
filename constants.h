@@ -23,6 +23,7 @@ static const char * MESSAGES_FILE = "./system/messages.txt";  // messages
 static const char * CONTROL_FILE  = "./system/control.txt";   // control file
 static const char * ROOMS_FILE    = "./rooms/rooms.txt";      // rooms file
 static const char * MONSTERS_FILE = "./monsters/monsters.txt";
+static const char * BOARD_FILE = "./boards/board.txt";
 // player names must consist of characters from this list
 static const std::string valid_player_name =
   "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789_-";

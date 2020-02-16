@@ -1,7 +1,7 @@
 CC=g++
 CCFLAGS=-g3 -Wall -w -pedantic -fmessage-length=0
 
-O_FILES = tinymudserver.o strings.o player.o load.o commands.o states.o globals.o comms.o room.o monster.o
+O_FILES = tinymudserver.o strings.o player.o load.o commands.o states.o globals.o comms.o room.o monster.o board.o
 
 tinymudserver : $(O_FILES)
 	$(CC) $(CCFLAGS) -o tinymudserver $(O_FILES)

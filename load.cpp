@@ -183,6 +183,21 @@ void LoadMon ()
     }
 }
 
+void LoadBoard ()
+{
+    // load Object file
+    std::ifstream fBoard (BOARD_FILE, std::ios::in);
+    if (!fBoard)
+    {
+        std::cerr << "Could not open objects file: " << MONSTERS_FILE << std::endl;
+        return;
+    }
+    
+    while (!(fBoard.eof ())) 
+	{
+	}
+}
+
 // build up our commands map and connection states
 void LoadThings ()
 {
@@ -195,5 +210,5 @@ void LoadThings ()
   LoadMessages ();
   LoadRooms ();
   LoadMon ();
-
+  LoadBoard ();
 } // end of LoadThings
