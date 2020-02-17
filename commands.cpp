@@ -442,6 +442,65 @@ void DoHealthCheck (tPlayer * p, istream & sArgs)
     *p << "Your current health is " << p->health << "/" << BASE_HEALTH << ".\r\n";
 }
 
+void DoBoard(tPlayer * p, istream & sArgs) 
+{
+	map<string, int> condition;
+	condition["post"] = 1;
+	condition["leaf"] = 2;
+	condition["read"] = 3;
+	condition["remv"] = 4;
+	string command;
+	string boardName;
+	string subCommand;
+	string result;
+	int arg1;
+	int arg2;
+	command = GetMessage(sArgs, "usage is board name command (post, leaf, read, remv");
+	NoMore(p, sArgs);
+	boardName = "main";
+	subCommand = command[0]+command[1]+command[2]+command[3];
+	if (command.size() >= 6)
+		arg1 = command[5];
+	if (command.size() >= 8)
+		arg2 = command[7];
+
+    for (boardListIterator listiter1 = bmap.begin ();
+     listiter1 != bmap.end ();
+     listiter1++)
+    {
+		board *b = *listiter1;
+		if ((*b).bname == boardName) 
+		{
+			switch(condition[command]) 
+			{
+				case 1: 
+				{
+					break;
+				}
+				case 2:
+				{
+					(*b).user = (int*)&p;
+					result = (*b).leaf(arg1, arg2);
+					*p << result;
+					break;
+				}
+				case 3:
+				{
+					(*b).user = (int*)&p;
+					result = (*b).read(arg1);
+					*p << result;
+					break;
+				}
+				case 4:
+				{
+					break;
+				}
+			}
+		}
+	}
+}
+
+
 void ProcessCommand (tPlayer * p, istream & sArgs)
 {
 
@@ -490,5 +549,6 @@ void LoadCommands ()
   commandmap ["health"]   = DoHealthCheck; // show the player's current health value
   commandmap ["h"]        = DoHealthCheck; // synonym for health 
   commandmap["?"]		  = DoScore; 
-  } // end of LoadCommands
+  commandmap["board"]	  = DoBoard;  
+} // end of LoadCommands
 

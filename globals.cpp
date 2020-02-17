@@ -30,7 +30,7 @@ time_t tLastMonsterAttack = 0; // time since last monster attack
 int    maxMonNum = 0;         // current largest monster vnum, for spawning new mons
 int    iControl = NO_SOCKET;  // socket for accepting new connections 
 
-
+boardList bmap;
 //list of all monsters
 monsterList monmap;
 // all monster names

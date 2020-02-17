@@ -12,64 +12,55 @@
 #include <vector>
 #include <algorithm>
 
-/*void board::Save ()
+board * FindBoard (const std::string & name)
 {
-    std::ifstream fMon (MONSTERS_FILE, std::ios::in);
-    if (!fMon)
-    {
-        std::cerr << "Could not open objects file: " << MONSTERS_FILE << std::endl;
-        return;
-    }
-    std::vector<std::string> boards;
-    while (!(fMon.eof ()))
-    {
-        
-        int mnum1;
-        int room1;
-        std::string monname;
-        fMon >> mnum1;
-        if (mnum != mnum1) {
-            boards.push_back(std::to_string(mnum1));
-        //std::cerr << vnum << std::endl;
-            fMon >> room1;
-            boards.push_back(std::to_string(room));
-        //std::cerr << room << std::endl;
-            fMon >> monname;
-            boards.push_back(monname);
-        //std::getline (fMon, monname);
-        //std::cerr << monname << std::endl;
-        }
-    }
-    std::ofstream f (MONSTERS_FILE, std::ios::out);
-    if (!f)
-    {
-        std::cerr << "Could not write to file." << std::endl;
-        return;
-    }
+    boardListIterator i =
+    std::find_if (bmap.begin (), bmap.end (), findBoardName (name));
     
-    // write player details
-    f << mnum << std::endl;
-    f << room << std::endl;
-    f << name << std::endl;
-    for (std::vector<std::string>::iterator listiter = boards.begin ();
-         listiter != boards.end ();
-         listiter++) {
-        f << *listiter;
-    }
-} /* end of board::Save */
+    if (i == bmap.end ())
+        return NULL;
+    else
+        return *i;
+} //end of FindMonster
 
-struct boardSendToPlayer
+
+void board::load ()
 {
-    const std::string message;
-    const int room;
-    
-    // ctor
-    boardSendToPlayer (const std::string & m, const int r = 0)
-    : message (m), room (r) {}
-    // send to this player
-    void operator() (tPlayer * p)
+    // load Object file
+    std::ifstream fBoard (BOARD_FILE, std::ios::in);
+    if (!fBoard)
     {
-        if (p->IsPlaying () && (room == 0 || p->room == room))
-            *p << message;
-    } // end of operator()
-};  // end of boardSendToPlayer
+        std::cerr << "Could not open objects file: " << BOARD_FILE << std::endl;
+        return;
+    }
+    
+    while (!(fBoard.eof ())) 
+	{
+    	std::string sMessageCode, sMessageText;
+    	fBoard >> sMessageCode >> std::ws;
+    	getline (fBoard, sMessageText);
+    	if (!(sMessageCode.empty ()))
+		{
+    		contents [tolower (sMessageCode)] =
+            FindAndReplace (sMessageText, "%r", "\r\n");
+		}
+    } // end of read loop
+}
+
+std::string board::leaf (int lower, int upper) 
+{
+	std::string list;
+	for (int i=lower;i < std::max(upper, (int)this->contents.size()); i++) 
+	{
+		list += std::to_string(i);
+		list += "\r\n";
+	} 
+	return list+"\r\n FUCK";
+}
+
+std::string board::read(int which)
+{
+	std::string note;
+	note = this->contents[std::to_string(which)]; 
+	return note+"\r\n FUCK";
+}

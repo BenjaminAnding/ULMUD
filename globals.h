@@ -3,10 +3,12 @@
 #include <map>
 #include <vector>
 
+#include "board.h"
 #include "monster.h"  // for monster list
 #include "player.h"   // for player list
 #include "room.h"     // for rooms and exits
 
+extern boardList bmap;
 // list of all monsters
 extern monsterList monmap;
 // list of monster names

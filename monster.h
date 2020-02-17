@@ -5,7 +5,7 @@
 //  Created by Ben Anding on 9/11/18.
 //
 
-#ifndef ITNYMUD_MONSTER_H
+#ifndef TINYMUD_MONSTER_H
 #define TINYMUD_MONSTER_H
 
 

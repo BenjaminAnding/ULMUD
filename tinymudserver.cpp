@@ -81,6 +81,9 @@ void PeriodicUpdates ()
     {        
         if (firstRun)
         {
+			board * b = new board(1, 1000, "main");
+			b->load();
+			bmap.push_back(b);
             srand(time (NULL)); // seed for random value
             monnames.erase(monnames.end() - 1); // get rid of empty monname at end
             firstRun = false;
