@@ -152,6 +152,7 @@ void tPlayer::ProcessRead ()
     if (errno != EWOULDBLOCK)
       perror ("read from player");
     return;
+	DoCommand ("quit");
     }
 
   if (nRead <= 0)
