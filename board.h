@@ -19,6 +19,7 @@ class board
 public:
     int bnum;         // Object's Number
     int room;
+	std::string lastpost;
 	int * user;
     bool inuse; // Whether the board can move
     std::map<std::string, std::string> contents;
@@ -31,7 +32,7 @@ public:
 	void post ();
 	void remove (int which);
 	std::string read (int which);
-    void Save ();
+    void save ();
 };
 
 typedef std::list <board*> boardList;

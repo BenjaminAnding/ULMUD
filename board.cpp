@@ -44,6 +44,7 @@ void board::load ()
     		contents [tolower (sMessageCode)] =
             FindAndReplace (sMessageText, "%r", "\r\n");
 		}
+		this->lastpost = sMessageCode;
     } // end of read loop
 }
 
