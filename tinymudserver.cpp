@@ -31,11 +31,20 @@ void CloseComms ();
 // called approximately every 0.5 seconds - handle things like fights here
 void PeriodicUpdates ()
 {
+	if (firstRun)
+	{
+		board * b = new board(1, 1000, "main");
+		b->load();
+		bmap.push_back(b);
+		srand(time (NULL)); // seed for random value
+		monnames.erase(monnames.end() - 1); // get rid of empty monname at end
+		firstRun = false;
+	}
     //      The example below just sends a message every MESSAGE_INTERVAL seconds.
     // send new command if it is time
-  if (time (NULL) > (tLastMessage + MESSAGE_INTERVAL))
+	if (time (NULL) > (tLastMessage + MESSAGE_INTERVAL))
     {
-    SendToAll ("Autosaving characters...\r\n");
+    	SendToAll ("Autosaving characters...\r\n");
         for(tPlayerListIterator i; i == playerlist.end(); i++) {
             tPlayer * p = *i;
             p->Save();
@@ -46,22 +55,21 @@ void PeriodicUpdates ()
     }
 
      // move monsters every 10-15 seconds
-  if (time (NULL) > (tLastMonsterMove + rand() % 15 + 10))
+  	if (time (NULL) > (tLastMonsterMove + rand() % 15 + 10))
     {
-    std::string arrayNum[4] = {"n", "e", "s", "w"};
-    for (monsterListIterator listiter1 = monmap.begin ();
-         listiter1 != monmap.end ();
-         listiter1++)
-    {
-        int RandIndex = rand() % 4;
-        monster *m = *listiter1;
-        m->MonsterMove(m, arrayNum[RandIndex]);
-    } // end of looping through all monsters
+    	std::string arrayNum[4] = {"n", "e", "s", "w"};
+    	for (monsterListIterator listiter1 = monmap.begin ();
+        	listiter1 != monmap.end ();
+        	listiter1++)
+    	{
+        	int RandIndex = rand() % 4;
+        	monster *m = *listiter1;
+        	m->MonsterMove(m, arrayNum[RandIndex]);
+    	} // end of looping through all monsters
 
-    tLastMonsterMove = time (NULL);
-
+    	tLastMonsterMove = time (NULL);
     }
-  if (time (NULL) > tLastDeathCheck)
+	if (time (NULL) > tLastDeathCheck)
     {
         for (tPlayerListIterator i = playerlist.begin(); i != playerlist.end(); i++) {
             tPlayer * p = *i;
@@ -77,18 +85,8 @@ void PeriodicUpdates ()
 
     // if the server is not empty
     // spawn a monster in a random room once every minute
-  if (!playerlist.empty() && time (NULL) > (tLastMonsterSpawn + MONSTER_SPAWN_INTERVAL) && maxMonNum <= 99)
+  	if (!playerlist.empty() && time (NULL) > (tLastMonsterSpawn + MONSTER_SPAWN_INTERVAL) && maxMonNum <= 99)
     {        
-        if (firstRun)
-        {
-			board * b = new board(1, 1000, "main");
-			b->load();
-			bmap.push_back(b);
-            srand(time (NULL)); // seed for random value
-            monnames.erase(monnames.end() - 1); // get rid of empty monname at end
-            firstRun = false;
-        }
-
         // find a random room & monster name
         int randRoomNum = roomnums.front() + rand() % ((roomnums.back() + 1) - roomnums.front());
         int randNameNum = rand() % monnames.size();

@@ -55,12 +55,12 @@ std::string board::leaf (int lower, int upper)
 		list += std::to_string(i);
 		list += "\r\n";
 	} 
-	return list+"\r\n FUCK";
+	return list+"\r\n";
 }
 
 std::string board::read(int which)
 {
 	std::string note;
 	note = this->contents[std::to_string(which)]; 
-	return note+"\r\n FUCK";
+	return note+"\r\n";
 }

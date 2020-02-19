@@ -449,21 +449,21 @@ void DoBoard(tPlayer * p, istream & sArgs)
 	condition["leaf"] = 2;
 	condition["read"] = 3;
 	condition["remv"] = 4;
-	string command;
 	string boardName;
-	string subCommand;
+	string command;
 	string result;
 	int arg1;
 	int arg2;
-	command = GetMessage(sArgs, "usage is board name command (post, leaf, read, remv");
+	board * targetBoard;
+	sArgs >> ws >> boardName >> ws >> command;
+	if (command == "read" || command == "leaf") {
+		sArgs >> ws >> arg1;
+		if (command == "leaf") {
+			sArgs >> ws >> arg2;
+		}
+	}
+	//command = GetMessage(sArgs, "usage is board name command (post, leaf, read, remv");
 	NoMore(p, sArgs);
-	boardName = "main";
-	subCommand = command[0]+command[1]+command[2]+command[3];
-	if (command.size() >= 6)
-		arg1 = command[5];
-	if (command.size() >= 8)
-		arg2 = command[7];
-
     for (boardListIterator listiter1 = bmap.begin ();
      listiter1 != bmap.end ();
      listiter1++)
@@ -471,31 +471,34 @@ void DoBoard(tPlayer * p, istream & sArgs)
 		board *b = *listiter1;
 		if ((*b).bname == boardName) 
 		{
-			switch(condition[command]) 
-			{
-				case 1: 
-				{
-					break;
-				}
-				case 2:
-				{
-					(*b).user = (int*)&p;
-					result = (*b).leaf(arg1, arg2);
-					*p << result;
-					break;
-				}
-				case 3:
-				{
-					(*b).user = (int*)&p;
-					result = (*b).read(arg1);
-					*p << result;
-					break;
-				}
-				case 4:
-				{
-					break;
-				}
-			}
+			targetBoard = b;
+		}
+	}
+	switch(condition[command]) 
+	{
+		case 1: 
+		{
+			break;
+		}
+		case 2:
+		{
+			(*targetBoard).user = (int*)&p;
+			result = (*targetBoard).leaf(arg1, arg2);			
+			(*targetBoard).user = NULL;
+			*p << "Board has:\r\n" << result;
+			break;
+		}
+		case 3:
+		{
+			(*targetBoard).user = (int*)&p;
+			result = (*targetBoard).read(arg1);
+			(*targetBoard).user = NULL;
+			*p << "Note reads:\r\n" << result;
+			break;
+		}
+		case 4:
+		{
+			break;
 		}
 	}
 }
