@@ -452,8 +452,8 @@ void DoBoard(tPlayer * p, istream & sArgs)
 	string boardName;
 	string command;
 	string result;
-	int arg1;
-	int arg2;
+	int arg1 = 0;
+	int arg2 = 0;
 	board * targetBoard;
 	sArgs >> ws >> boardName >> ws >> command;
 	if (command == "read" || command == "leaf") {
