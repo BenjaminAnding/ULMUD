@@ -51,7 +51,7 @@ void board::load ()
 std::string board::leaf (int lower, int upper) 
 {
 	std::string list;
-	for (int i=lower;i < std::max(upper, (int)this->contents.size()); i++) 
+	for (int i=lower;i < std::min(upper, (int)this->contents.size()); i++) 
 	{
 		list += std::to_string(i);
 		list += "\r\n";

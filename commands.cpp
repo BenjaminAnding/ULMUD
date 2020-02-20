@@ -483,6 +483,7 @@ void DoBoard(tPlayer * p, istream & sArgs)
 		case 2:
 		{
 			(*targetBoard).user = (int*)&p;
+			targetBoard->load();
 			result = (*targetBoard).leaf(arg1, arg2);			
 			(*targetBoard).user = NULL;
 			*p << "Board has:\r\n" << result;
@@ -491,6 +492,7 @@ void DoBoard(tPlayer * p, istream & sArgs)
 		case 3:
 		{
 			(*targetBoard).user = (int*)&p;
+			targetBoard->load();
 			result = (*targetBoard).read(arg1);
 			(*targetBoard).user = NULL;
 			*p << "Note reads:\r\n" << result;
