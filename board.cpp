@@ -11,6 +11,7 @@
 #include <iostream>
 #include <vector>
 #include <algorithm>
+#include <sstream>
 
 board * FindBoard (const std::string & name)
 {
@@ -25,6 +26,7 @@ board * FindBoard (const std::string & name)
 
 void board::load ()
 {
+	this->lastpost = 0;
     // load Object file
     std::ifstream fBoard (BOARD_FILE, std::ios::in);
     if (!fBoard)
@@ -42,12 +44,12 @@ void board::load ()
 		{
     		contents [tolower (sMessageCode)] =
             FindAndReplace (sMessageText, "%r", "\r\n");
+			this->lastpost = ++(this->lastpost);
 		}
-		this->lastpost = sMessageCode;
     } // end of read loop
 }
 
-std::string board::post (std::istream & sArgs)
+void board::post ()
 {
 	std::string result;
 	std::string message;
@@ -77,7 +79,8 @@ std::string board::post (std::istream & sArgs)
 			inbuf.clear();
 		}
 	}
-	return result;
+	this->contents[std::to_string(this->lastpost)] = FindAndReplace(result, "**", "");
+	this->save();
 }
 
 std::string board::leaf (int lower, int upper) 
@@ -96,4 +99,25 @@ std::string board::boardread(int which)
 	std::string note;
 	note = this->contents[std::to_string(which)]; 
 	return note+"\r\n";
+}
+
+void board::save()
+{
+	  std::ofstream f (BOARD_FILE, std::ios::out);
+	  if (!f)
+	  {
+ 		 std::cerr << "Could not write to file board " << std::endl;
+ 		 return;
+ 	 }
+	for (std::map<std::string,std::string>::iterator i = contents.begin(); i != contents.end(); ++i)
+	{
+  
+
+		std::string key = i->first;
+		std::string val = i->second;
+  		f << key << " ";
+  		f << val;
+		f << std::endl;
+	}
+  	f << std::endl;
 }

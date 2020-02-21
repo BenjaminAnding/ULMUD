@@ -461,6 +461,10 @@ void DoBoard(tPlayer * p, istream & sArgs)
 			sArgs >> ws >> arg2;
 		}
 	}
+	if (command == "post") 
+	{
+		*p << "Entering post mode, finish with **\r\n";
+	}
 	//command = GetMessage(sArgs, "usage is board name command (post, leaf, read, remv");
 	NoMore(p, sArgs);
     for (boardListIterator listiter1 = bmap.begin ();
@@ -473,36 +477,39 @@ void DoBoard(tPlayer * p, istream & sArgs)
 			targetBoard = b;
 		}
 	}
-	switch(condition[command]) 
+	if ((*targetBoard).user == NULL) 
 	{
-		case 1: 
+		switch(condition[command]) 
 		{
-			(*targetBoard).user = (int*)p;
-			result = (*targetBoard).post(sArgs);
-			*p << result;
-			break;
-		}
-		case 2:
-		{
-			(*targetBoard).user = (int*)p;
-			targetBoard->load();
-			result = (*targetBoard).leaf(arg1, arg2);			
-			(*targetBoard).user = NULL;
-			*p << "Board has:\r\n" << result;
-			break;
-		}
-		case 3:
-		{
-			(*targetBoard).user = (int*)p;
-			targetBoard->load();
-			result = (*targetBoard).boardread(arg1);
-			(*targetBoard).user = NULL;
-			*p << "Note reads:\r\n" << result;
-			break;
-		}
-		case 4:
-		{
-			break;
+			case 1: 
+			{
+				(*targetBoard).user = (int*)p;
+				(*targetBoard).post();
+				(*targetBoard).user = NULL;
+				break;
+			}
+			case 2:
+			{
+				(*targetBoard).user = (int*)p;
+				targetBoard->load();
+				result = (*targetBoard).leaf(arg1, arg2);			
+				(*targetBoard).user = NULL;
+				*p << "Board has:\r\n" << result;
+				break;
+			}
+			case 3:
+			{
+				(*targetBoard).user = (int*)p;
+				targetBoard->load();
+				result = (*targetBoard).boardread(arg1);
+				(*targetBoard).user = NULL;
+				*p << "Note reads:\r\n" << result;
+				break;
+			}
+			case 4:
+			{
+				break;
+			}
 		}
 	}
 }

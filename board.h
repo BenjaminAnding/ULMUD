@@ -21,9 +21,9 @@ class board
 public:
     int bnum;         // Object's Number
     int room;
-	std::string lastpost;
+	int lastpost;
 	std::string inbuf;
-	int * user;
+	int * user = NULL;
     bool inuse; // Whether the board can move
     std::map<std::string, std::string> contents;
     std::string bname; // Name of Object
@@ -32,7 +32,7 @@ public:
     board (int bnum1, int room1, std::string bname1) : bnum (bnum1), room (room1), bname (bname1) {}
     void load ();
 	std::string leaf (int lower, int upper);
-	std::string post (std::istream & sArgs);
+	void post ();
 	void remove (int which);
 	std::string boardread (int which);
     void save ();
