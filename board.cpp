@@ -49,64 +49,32 @@ void board::load ()
 
 std::string board::post (std::istream & sArgs)
 {
-/*
-  tPlayer * p = (tPlayer*)this->user;
-  int s = p->GetSocket(); 
-  static std::vector<char> buf (1000);  // reserve 1000 bytes for reading into
-  int nRead = read (p->GetSocket(), &buf [0], buf.size ());
-  if (nRead == -1)
-    {
-    close (s);
-    if (errno != EWOULDBLOCK)
-      perror ("read from player");
-    return "";
-    }
-  if (nRead <= 0)
-    {
-    close (s);
-    std::cerr << "Connection " << s << " closed" << std::endl;
-    s = NO_SOCKET;
-    return "";
-    }
-*/
 	std::string result;
 	std::string message;
-/*	
-  inbuf += std::string (&buf [0], nRead);
-  for ( ; ; )
-    {
-    std::string::size_type i = inbuf.find ('\n');
-    if (i == std::string::npos)
-      break;  
-
-    std::string sLine = inbuf.substr (0, i);  
-    inbuf = inbuf.substr (i + 1, std::string::npos); 
-*/
   	tPlayer * p = (tPlayer*)this->user;
-	close(p->GetSocket());
-	while (result.find("**") == std::string::npos)
-	//for (int i = 0; i < 3; i++)
+  	static std::vector<char> buf (1000);  // reserve 1000 bytes for reading into
+	while (message.find("**") == std::string::npos)
 	{
-  		static std::vector<char> buf (1000);  // reserve 1000 bytes for reading into
   		int nRead = read (p->GetSocket(), &buf [0], buf.size ());
 		if (nRead == -1) 
 		{
-			if (errno != EINPROGRESS)
+			if (errno != EWOULDBLOCK) 
 			{
-				if (errno != EWOULDBLOCK) 
-				{
-					perror("error in read");
-				}
+				close(p->GetSocket());
+				perror("error in read");
+				p->DoCommand("quit");
 			}
 		}
 		if (nRead > 0) 
 		{
   			inbuf += std::string (&buf [0], nRead);
 		}
-		message = inbuf.substr(0,1);
+		message = inbuf.substr(0,nRead);
 		if (!message.empty()) 
 		{
-			result = result + "%r" + message;
+			message = FindAndReplace(message, "\r", "");
+			result += FindAndReplace(message, "\n", "%r");
+			inbuf.clear();
 		}
 	}
 	return result;

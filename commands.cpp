@@ -477,14 +477,14 @@ void DoBoard(tPlayer * p, istream & sArgs)
 	{
 		case 1: 
 		{
-			(*targetBoard).user = (int*)&p;
+			(*targetBoard).user = (int*)p;
 			result = (*targetBoard).post(sArgs);
 			*p << result;
 			break;
 		}
 		case 2:
 		{
-			(*targetBoard).user = (int*)&p;
+			(*targetBoard).user = (int*)p;
 			targetBoard->load();
 			result = (*targetBoard).leaf(arg1, arg2);			
 			(*targetBoard).user = NULL;
@@ -493,7 +493,7 @@ void DoBoard(tPlayer * p, istream & sArgs)
 		}
 		case 3:
 		{
-			(*targetBoard).user = (int*)&p;
+			(*targetBoard).user = (int*)p;
 			targetBoard->load();
 			result = (*targetBoard).boardread(arg1);
 			(*targetBoard).user = NULL;
