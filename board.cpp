@@ -115,8 +115,9 @@ void board::save()
 
 		std::string key = i->first;
 		std::string val = i->second;
+		val = FindAndReplace(val, "\r", "");
   		f << key << " ";
-  		f << val;
+  		f << FindAndReplace(val, "\n", "%r");
 		f << std::endl;
 	}
   	f << std::endl;
