@@ -8,11 +8,13 @@
 #ifndef TINYMUD_BOARD_H
 #define TINYMUD_BOARD_H
 
-
+#include <sstream>
+#include <iostream>
 #include <set>
 #include <list>
 #include <map>
 #include "strings.h"
+#include "unistd.h"
 
 class board
 {
@@ -20,6 +22,7 @@ public:
     int bnum;         // Object's Number
     int room;
 	std::string lastpost;
+	std::string inbuf;
 	int * user;
     bool inuse; // Whether the board can move
     std::map<std::string, std::string> contents;
@@ -29,9 +32,9 @@ public:
     board (int bnum1, int room1, std::string bname1) : bnum (bnum1), room (room1), bname (bname1) {}
     void load ();
 	std::string leaf (int lower, int upper);
-	void post ();
+	std::string post (std::istream & sArgs);
 	void remove (int which);
-	std::string read (int which);
+	std::string boardread (int which);
     void save ();
 };
 

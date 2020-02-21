@@ -21,8 +21,7 @@ board * FindBoard (const std::string & name)
         return NULL;
     else
         return *i;
-} //end of FindMonster
-
+} //end of FindBoard
 
 void board::load ()
 {
@@ -48,6 +47,71 @@ void board::load ()
     } // end of read loop
 }
 
+std::string board::post (std::istream & sArgs)
+{
+/*
+  tPlayer * p = (tPlayer*)this->user;
+  int s = p->GetSocket(); 
+  static std::vector<char> buf (1000);  // reserve 1000 bytes for reading into
+  int nRead = read (p->GetSocket(), &buf [0], buf.size ());
+  if (nRead == -1)
+    {
+    close (s);
+    if (errno != EWOULDBLOCK)
+      perror ("read from player");
+    return "";
+    }
+  if (nRead <= 0)
+    {
+    close (s);
+    std::cerr << "Connection " << s << " closed" << std::endl;
+    s = NO_SOCKET;
+    return "";
+    }
+*/
+	std::string result;
+	std::string message;
+/*	
+  inbuf += std::string (&buf [0], nRead);
+  for ( ; ; )
+    {
+    std::string::size_type i = inbuf.find ('\n');
+    if (i == std::string::npos)
+      break;  
+
+    std::string sLine = inbuf.substr (0, i);  
+    inbuf = inbuf.substr (i + 1, std::string::npos); 
+*/
+  	tPlayer * p = (tPlayer*)this->user;
+	close(p->GetSocket());
+	while (result.find("**") == std::string::npos)
+	//for (int i = 0; i < 3; i++)
+	{
+  		static std::vector<char> buf (1000);  // reserve 1000 bytes for reading into
+  		int nRead = read (p->GetSocket(), &buf [0], buf.size ());
+		if (nRead == -1) 
+		{
+			if (errno != EINPROGRESS)
+			{
+				if (errno != EWOULDBLOCK) 
+				{
+					perror("error in read");
+				}
+			}
+		}
+		if (nRead > 0) 
+		{
+  			inbuf += std::string (&buf [0], nRead);
+		}
+		message = inbuf.substr(0,1);
+		if (!message.empty()) 
+		{
+			result = result + "%r" + message;
+		}
+	}
+	return result;
+}
+
 std::string board::leaf (int lower, int upper) 
 {
 	std::string list;
@@ -59,7 +123,7 @@ std::string board::leaf (int lower, int upper)
 	return list+"\r\n";
 }
 
-std::string board::read(int which)
+std::string board::boardread(int which)
 {
 	std::string note;
 	note = this->contents[std::to_string(which)]; 

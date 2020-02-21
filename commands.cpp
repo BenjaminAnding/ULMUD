@@ -135,7 +135,6 @@ void DoLook (tPlayer * p, istream & sArgs)
     lookObject (p, whichObject);
     return;
     }
-    
   
   // find our current room, throws exception if not there
   tRoom * r = FindRoom (p->room);
@@ -478,6 +477,9 @@ void DoBoard(tPlayer * p, istream & sArgs)
 	{
 		case 1: 
 		{
+			(*targetBoard).user = (int*)&p;
+			result = (*targetBoard).post(sArgs);
+			*p << result;
 			break;
 		}
 		case 2:
@@ -493,7 +495,7 @@ void DoBoard(tPlayer * p, istream & sArgs)
 		{
 			(*targetBoard).user = (int*)&p;
 			targetBoard->load();
-			result = (*targetBoard).read(arg1);
+			result = (*targetBoard).boardread(arg1);
 			(*targetBoard).user = NULL;
 			*p << "Note reads:\r\n" << result;
 			break;
