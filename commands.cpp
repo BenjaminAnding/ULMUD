@@ -461,10 +461,6 @@ void DoBoard(tPlayer * p, istream & sArgs)
 			sArgs >> ws >> arg2;
 		}
 	}
-	if (command == "post") 
-	{
-		*p << "Entering post mode, finish with **\r\n";
-	}
 	//command = GetMessage(sArgs, "usage is board name command (post, leaf, read, remv");
 	NoMore(p, sArgs);
     for (boardListIterator listiter1 = bmap.begin ();
@@ -511,6 +507,10 @@ void DoBoard(tPlayer * p, istream & sArgs)
 				break;
 			}
 		}
+	}
+	else 
+	{
+		*p << "Someone else is using that board right now.\r\n";
 	}
 }
 
