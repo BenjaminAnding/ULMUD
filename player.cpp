@@ -148,20 +148,20 @@ void tPlayer::ProcessRead ()
   
   if (nRead == -1)
     {
+	DoCommand ("quit");
     close (s);
     if (errno != EWOULDBLOCK)
       perror ("read from player");
     return;
-	DoCommand ("quit");
     }
 
   if (nRead <= 0)
     {
+    DoCommand ("quit");  // tell others the s/he has left
     close (s);
     cerr << "Connection " << s << " closed" << endl;
     s = NO_SOCKET;
     return;
-    DoCommand ("quit");  // tell others the s/he has left
     }
 
   inbuf += std::string (&buf [0], nRead);    /* add to input buffer */
