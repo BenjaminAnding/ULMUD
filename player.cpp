@@ -150,7 +150,7 @@ void tPlayer::ProcessRead ()
     {
 	DoCommand ("quit");
     close (s);
-    if (errno != EWOULDBLOCK)
+    if (errno != EWOULDBLOCK && errno != EINPROGRESS && errno != ECONNRESET)
       perror ("read from player");
     return;
     }
