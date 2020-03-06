@@ -60,7 +60,7 @@ void board::post ()
   		int nRead = read (p->GetSocket(), &buf [0], buf.size ());
 		if (nRead == -1) 
 		{
-			if (errno != EWOULDBLOCK) 
+			if (errno != EWOULDBLOCK && errno != EINPROGRESS && errno != ECONNRESET) 
 			{
 				close(p->GetSocket());
 				perror("error in read");
